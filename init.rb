@@ -1,3 +1,3 @@
-require "#{directory}/localization.rb"
+require "#{directory}/lib/localization.rb"
 
 Localization.load
