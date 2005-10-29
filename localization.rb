@@ -7,7 +7,13 @@ module Localization
   def self._(string_to_localize, *args)
     translated = @@l10s[@@lang][string_to_localize] || string_to_localize
     return translated.call(*args).to_s  if translated.is_a? Proc
-    translated = translated[args[0]>1 ? 1 : 0] if translated.is_a? Array
+    if translated.is_a? Array
+      translated = if translated.size == 3 
+        translated[args[0]==0 ? 0 : (args[0]>1 ? 2 : 1)]
+      else
+        translated[args[0]>1 ? 1 : 0]
+      end
+    end
     sprintf translated, *args
   end
   
